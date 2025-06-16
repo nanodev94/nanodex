@@ -1,11 +1,14 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function App() {
+  const { t } = useTranslation('common')
   const [count, setCount] = useState(0)
 
   return (
     <>
       <h1>Vite + React</h1>
+      <h1>{t('test.ab')}</h1>
       <div className='card'>
         <button onClick={() => setCount(count => count + 1)}>
           count is {count}
