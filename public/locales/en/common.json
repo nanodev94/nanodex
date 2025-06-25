@@ -1,10 +1,9 @@
 {
-  "test": {
-    "as": "Test2",
-    "ab": "Test35"
-  },
-  "test2": {
-    "as": "Test2",
-    "ab": "Test3"
+  "appName": "NANODEX",
+  "navBar": {
+    "pokemons": "Pokemons",
+    "moves": "Moves",
+    "items": "Items",
+    "types": "Types"
   }
 }
