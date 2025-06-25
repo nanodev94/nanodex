@@ -7,10 +7,13 @@ import { Link, Outlet } from 'react-router'
 
 import NavBar from '@/components/NavBar'
 import type { NavBarItem } from '@/components/NavBar/NavBar'
-import { PAGE, TWITTER_DATA } from '@/constants'
+import Select, { type SelectOption } from '@/components/Select'
+import { FLAG, PAGE, TWITTER_DATA } from '@/constants'
+import { SUPPORTED_LOCALES } from '@/i18n'
 
 const MainLayout = () => {
-  const { t } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
+  const currentLocale = i18n.language
 
   const navBarItems: NavBarItem[] = [
     {
@@ -35,6 +38,18 @@ const MainLayout = () => {
     },
   ]
 
+  const localeSelectOptions: SelectOption[] = SUPPORTED_LOCALES.map(locale => ({
+    label: locale.toUpperCase(),
+    value: locale,
+    icon: <img alt={locale} src={FLAG[locale]} />,
+  }))
+
+  const handleLocaleChange = (newValue: SelectOption | null) => {
+    if (newValue) {
+      i18n.changeLanguage(newValue.value)
+    }
+  }
+
   return (
     <div className='bg-red-700 size-full flex flex-col'>
       <header className='bg-red-800 flex items-center justify-between p-4'>
@@ -42,7 +57,11 @@ const MainLayout = () => {
           <img className='size-10' alt='icon.webp' src='/images/icon.webp' />
           <span>{t('appName')}</span>
         </div>
-        <span>ES</span>
+        <Select
+          options={localeSelectOptions}
+          onChange={handleLocaleChange}
+          defaultValue={currentLocale}
+        />
       </header>
       <main className='grow'>
         <Outlet />
